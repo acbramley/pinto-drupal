@@ -1,0 +1,22 @@
+{
+    "name": "drupal/pinto",
+    "description": "Theme object system.",
+    "type": "drupal-module",
+    "require": {
+        "php": ">=8.2",
+        "drupal/core": "^10.2",
+        "dpi/pinto": "^0.0.1 || ^1",
+        "thecodingmachine/safe": "^2.5"
+    },
+    "require-dev": {
+        "previousnext/coding-standard": "^1.0",
+        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-deprecation-rules": "*",
+        "phpstan/phpstan-strict-rules": "^1@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "PintoResources\\pinto_test\\": "tests/modules/pinto_test/resources"
+        }
+    }
+}

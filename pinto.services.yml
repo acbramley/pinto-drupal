@@ -1,0 +1,21 @@
+parameters:
+  # List of namespaces (directories) containing Pinto enums.
+  # Override with a site level services.yml.
+  pinto.namespaces:
+    - 'Pinto'
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+    public: false
+
+  Pinto\PintoMapping:
+    class: Pinto\PintoMapping
+    public: true
+
+  Drupal\pinto\Renderer:
+    class: Drupal\pinto\Renderer
+    decorates: renderer
+    arguments:
+      $inner: '@.inner'

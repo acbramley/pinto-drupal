@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+use Pinto\PintoMapping;
+
+/**
+ * Implements hook_theme().
+ */
+function pinto_theme(array $existing, string $type, string $theme, string $path): array {
+  /** @var \Pinto\PintoMapping $pintoMapping */
+  $pintoMapping = \Drupal::service(PintoMapping::class);
+  return array_merge(...array_map(static function (string $enumClass) use ($existing, $type, $theme, $path) {
+    /** @var class-string<\Pinto\List\ObjectListInterface> $enumClass */
+    return $enumClass::themeDefinitions($existing, $type, $theme, $path);
+  }, $pintoMapping->getEnumClasses()));
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function pinto_library_info_build(): array {
+  /** @var \Pinto\PintoMapping $pintoMapping */
+  $pintoMapping = \Drupal::service(PintoMapping::class);
+  return array_merge(...array_map(static function (string $enumClass) {
+    /** @var class-string<\Pinto\List\ObjectListInterface> $enumClass */
+    return $enumClass::libraries();
+  }, $pintoMapping->getEnumClasses()));
+}

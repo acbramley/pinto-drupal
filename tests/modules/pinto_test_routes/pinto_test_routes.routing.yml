@@ -1,0 +1,34 @@
+pinto_test.object_test:
+  path: '/pinto_test_routes/object-test'
+  defaults:
+    _controller: '\Drupal\pinto_test_routes\Controller\ObjectTestController'
+  requirements:
+    _access: 'TRUE'
+
+pinto_test.dir_based:
+  path: '/pinto_test_routes/dir-based'
+  defaults:
+    _controller: '\Drupal\pinto_test_routes\Controller\DirBasedController'
+  requirements:
+    _access: 'TRUE'
+
+pinto_test.dir_based_object_location:
+  path: '/pinto_test_routes/dir-based-object-location'
+  defaults:
+    _controller: '\Drupal\pinto_test_routes\Controller\DirBasedWithPhpController'
+  requirements:
+    _access: 'TRUE'
+
+pinto_test.nested_predefined:
+  path: '/pinto_test_routes/nested-predefined'
+  defaults:
+    _controller: '\Drupal\pinto_test_routes\Controller\NestedPredefinedController'
+  requirements:
+    _access: 'TRUE'
+
+pinto_test.nested_object:
+  path: '/pinto_test_routes/nested-object'
+  defaults:
+    _controller: '\Drupal\pinto_test_routes\Controller\NestedObjectController'
+  requirements:
+    _access: 'TRUE'
