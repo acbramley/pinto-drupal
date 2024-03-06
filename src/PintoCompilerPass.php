@@ -86,14 +86,14 @@ final class PintoCompilerPass implements CompilerPassInterface {
       $dirs = (array) $dirs;
       foreach ($dirs as $dir) {
         foreach ($pintoNamespaces as $pintoNamespace) {
-          $dir .= '/' . $pintoNamespace;
-          if (!file_exists($dir)) {
+          $nsDir = $dir . '/' . str_replace('\\', '/', $pintoNamespace);
+          if (!file_exists($nsDir)) {
             continue;
           }
           $namespace .= '\\' . $pintoNamespace;
 
           /** @var \RecursiveIteratorIterator<\RecursiveDirectoryIterator<\SplFileInfo>> $iterator */
-          $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir, \FilesystemIterator::KEY_AS_PATHNAME | \FilesystemIterator::CURRENT_AS_FILEINFO | \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
+          $iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($nsDir, \FilesystemIterator::KEY_AS_PATHNAME | \FilesystemIterator::CURRENT_AS_FILEINFO | \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
           foreach ($iterator as $fileinfo) {
             assert($fileinfo instanceof \SplFileInfo);
             if ('php' !== $fileinfo->getExtension()) {
