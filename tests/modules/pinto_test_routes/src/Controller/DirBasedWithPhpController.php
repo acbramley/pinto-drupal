@@ -11,7 +11,7 @@ final class DirBasedWithPhpController extends ControllerBase {
 
   public function __invoke(): array {
     return [
-      'foo' => ThemeObject::create('foo bar!'),
+      'foo' => ThemeObject::create('foo bar!')->build(),
     ];
   }
 

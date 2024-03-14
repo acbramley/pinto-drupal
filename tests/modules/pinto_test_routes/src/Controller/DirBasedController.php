@@ -11,7 +11,7 @@ final class DirBasedController extends ControllerBase {
 
   public function __invoke(): array {
     return [
-      'foo' => ObjectDirBased::create('foo bar!'),
+      'foo' => ObjectDirBased::create('foo bar!')->build(),
     ];
   }
 

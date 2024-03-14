@@ -17,7 +17,7 @@ final class ObjectNested {
   public function __invoke(): mixed {
     return $this->pintoBuild(function (mixed $build): mixed {
       return $build + [
-        '#inner' => ObjectNestedInner::create('Nested inner text!'),
+        '#inner' => ObjectNestedInner::create('Nested inner text!')(),
       ];
     });
   }

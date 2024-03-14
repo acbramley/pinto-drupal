@@ -14,7 +14,7 @@ final class NestedObjectController extends ControllerBase {
     return [
       'foo' => ObjectNestedViaVariable::create(
         ObjectNestedInner::create('Nested inner text in a nested variable!'),
-      ),
+      )(),
     ];
   }
 

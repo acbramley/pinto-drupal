@@ -11,7 +11,7 @@ final class NestedPredefinedController extends ControllerBase {
 
   public function __invoke(): array {
     return [
-      'foo' => new ObjectNested(),
+      'foo' => (new ObjectNested())(),
     ];
   }
 

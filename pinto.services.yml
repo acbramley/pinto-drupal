@@ -12,9 +12,3 @@ services:
   Pinto\PintoMapping:
     class: Pinto\PintoMapping
     public: true
-
-  Drupal\pinto\Renderer:
-    class: Drupal\pinto\Renderer
-    decorates: renderer
-    arguments:
-      $inner: '@.inner'
