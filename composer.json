@@ -4,7 +4,7 @@
     "type": "drupal-module",
     "require": {
         "php": ">=8.2",
-        "drupal/core": "^10.2",
+        "drupal/core": "^10.1",
         "dpi/pinto": "^0.0.1 || ^1",
         "thecodingmachine/safe": "^2.5"
     },
