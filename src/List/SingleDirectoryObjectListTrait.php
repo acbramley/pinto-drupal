@@ -14,23 +14,37 @@ use Pinto\Attribute\Definition;
 trait SingleDirectoryObjectListTrait {
 
   public function templateDirectory(): string {
-    return $this->directory();
+    return $this->twigDirectory();
   }
 
   public function cssDirectory(): string {
-    return $this->directory();
+    return $this->libraryDirectory();
   }
 
   public function jsDirectory(): string {
-    return $this->directory();
+    return $this->libraryDirectory();
   }
 
-  private function directory(): string {
+  /**
+   * May be extended.
+   */
+  protected function twigDirectory(): string {
     // Gets the resources from the same directory as the object PHP file.
     // Override this method with a different directory if you want to keep
     // assets in different directories from object PHP files.
     $definition = ((new \ReflectionEnumUnitCase($this::class, $this->name))->getAttributes(Definition::class)[0] ?? NULL)?->newInstance() ?? throw new \LogicException('All component cases must have a `' . Definition::class . '`.');
-    return SingleDirectoryObjectListCache::nsAndDir($definition->className);
+    return SingleDirectoryObjectListCache::twigNsAndDir($definition->className);
+  }
+
+  /**
+   * May be extended.
+   */
+  protected function libraryDirectory(): string {
+    // Gets the resources from the same directory as the object PHP file.
+    // Override this method with a different directory if you want to keep
+    // assets in different directories from object PHP files.
+    $definition = ((new \ReflectionEnumUnitCase($this::class, $this->name))->getAttributes(Definition::class)[0] ?? NULL)?->newInstance() ?? throw new \LogicException('All component cases must have a `' . Definition::class . '`.');
+    return SingleDirectoryObjectListCache::libraryDir($definition->className);
   }
 
 }

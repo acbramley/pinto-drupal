@@ -24,8 +24,12 @@ enum DirectoryBased: string implements ObjectListInterface {
     return 'template';
   }
 
-  private function directory(): string {
+  protected function twigDirectory(): string {
     return '@pinto_test/resources/' . $this->name;
+  }
+
+  protected function libraryDirectory(): string {
+    return sprintf('%s/%s', realpath(__DIR__ . '/../../../resources'), $this->name);
   }
 
 }

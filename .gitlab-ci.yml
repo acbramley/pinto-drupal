@@ -47,6 +47,31 @@ include:
       - '/includes/include.drupalci.variables.yml'
       - '/includes/include.drupalci.workflows.yml'
 
+
+# https://git.drupalcode.org/project/gitlab_templates/-/blob/main/includes/include.drupalci.main.yml#L355
+composer:
+  # https://docs.gitlab.com/ee/ci/yaml/#extends
+  extends: .composer-base
+  after_script:
+    # Undo the symlink stuff done in .composer-base with `symlink_project.php`
+    # https://git.drupalcode.org/project/gitlab_templates/-/blob/main/scripts/symlink_project.php
+    - echo "Replacing symlinks with real copies"
+    - rm -rf /builds/project/pinto/web/modules/custom/pinto
+    # Move file as it wants to be at root:
+    - mv .gitlab/custom_symlink_project.php .
+    - php custom_symlink_project.php "$CI_PROJECT_NAME" 'modules/custom'
+    - rm custom_symlink_project.php
+    # Rename root package as it conflicts with the one we are requiring.
+    - sed -i 's/"drupal\/pinto"/"drupal\/pinto-project"/' composer.json
+    # Remove autoload entries so the real version gets used.
+    - composer config --unset autoload
+    - composer config --unset autoload-dev
+    # Symlink and require the project from where real locations.
+    # The real location are no longer symlinks, but real files, per custom_symlink_project.php
+    - |
+      composer config repositories.local-path '{"type": "path", "url": "/builds/project/pinto/web/modules/custom/pinto"}'
+    - composer require drupal/pinto
+
 ################
 # Pipeline configuration variables
 #

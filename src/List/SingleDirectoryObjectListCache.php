@@ -21,12 +21,21 @@ final class SingleDirectoryObjectListCache {
    *
    * @internal
    */
-  public static array $nsAndDir = [];
+  private static array $nsAndDir = [];
+
+  /**
+   * The app-relative directory of an object class.
+   *
+   * Internal, may be removed at any time.
+   *
+   * @internal
+   */
+  private static array $libraryDir = [];
 
   /**
    * @phpstan-param class-string $objectClassName
    */
-  public static function nsAndDir(string $objectClassName): string {
+  public static function twigNsAndDir(string $objectClassName): string {
     if (isset(static::$nsAndDir[$objectClassName])) {
       return static::$nsAndDir[$objectClassName];
     }
@@ -47,6 +56,25 @@ final class SingleDirectoryObjectListCache {
 
       $dir = dirname($dir);
     }
+  }
+
+  /**
+   * @phpstan-param class-string $objectClassName
+   */
+  public static function libraryDir(string $objectClassName): string {
+    if (isset(static::$libraryDir[$objectClassName])) {
+      return static::$libraryDir[$objectClassName];
+    }
+
+    /** @var string $fileName */
+    $fileName = (new \ReflectionClass($objectClassName))->getFileName();
+    $objectClassDir = dirname($fileName);
+    if (!\str_starts_with($objectClassDir, \DRUPAL_ROOT)) {
+      // Safety! Has not actually happened as far as I know...
+      throw new \LogicException(sprintf('Somehow the class is not in the Drupal directory: %s is not in %s', $objectClassDir, \DRUPAL_ROOT));
+    }
+
+    return (static::$libraryDir[$objectClassName] = \substr($objectClassDir, strlen(\DRUPAL_ROOT)));
   }
 
 }

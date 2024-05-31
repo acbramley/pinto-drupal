@@ -4,5 +4,5 @@ parameters:
     - ./src
     - ./tests
   reportUnmatchedIgnoredErrors: true
-  checkMissingIterableValueType: false
-  checkGenericClassInNonGenericObjectType: false
+  ignoreErrors:
+    - identifier: missingType.iterableValue
