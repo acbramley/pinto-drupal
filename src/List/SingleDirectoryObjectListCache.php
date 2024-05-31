@@ -70,7 +70,8 @@ final class SingleDirectoryObjectListCache {
     $fileName = (new \ReflectionClass($objectClassName))->getFileName();
     $objectClassDir = dirname($fileName);
     if (!\str_starts_with($objectClassDir, \DRUPAL_ROOT)) {
-      // Safety! Has not actually happened as far as I know...
+      // This can happen on Drupal CI, or setups where module is symlinked
+      // where code lies outside the Drupal install.
       throw new \LogicException(sprintf('Somehow the class is not in the Drupal directory: %s is not in %s', $objectClassDir, \DRUPAL_ROOT));
     }
 
