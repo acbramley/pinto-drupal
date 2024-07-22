@@ -3,7 +3,7 @@
     "description": "Theme object system.",
     "type": "drupal-module",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.1",
         "drupal/core": "^10.1",
         "dpi/pinto": "^0 || ^1",
         "thecodingmachine/safe": "^2.5"
