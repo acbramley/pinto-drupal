@@ -2,4 +2,4 @@ name: Pinto
 type: module
 description: Theme object system
 core_version_requirement: ^10.1
-php: 8.2
+php: 8.1
